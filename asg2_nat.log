@@ -1,0 +1,166 @@
+Script started on Thu 28 Nov 2013 08:46:41 PM PST
+]0;mininet@mininet-vm: ~/csc458mininet@mininet-vm:~/csc458$ ./run_mininet.sh [5Psudo reboot[C[5@./run_mininet.sh[C
+[sudo] password for mininet: 
+*** Removing excess controllers/ofprotocols/ofdatapaths/pings/noxes
+killall -9 controller ofprotocol ofdatapath ping nox_core lt-nox_core ovs-openflowd udpbwtest 2> /dev/null
+*** Removing junk from /tmp
+rm -f /tmp/vconn* /tmp/vlogs* /tmp/*.out /tmp/*.log
+*** Removing old screen sessions
+*** Removing excess kernel datapaths
+ps ax | egrep -o 'dp[0-9]+' | sed 's/dp/nl:/'
+***  Removing OVS datapathsovs-vsctl list-br
+*** Removing all links of the pattern foo-ethX
+ip link show | egrep -o '(\w+-eth\w+)'
+*** Cleanup complete.
+*** Shutting down stale SimpleHTTPServers  
+*** Shutting down stale webservers  
+server1 172.64.3.21
+server2 172.64.3.22
+client 10.0.1.100
+sw0-eth1 10.0.1.11
+sw0-eth2 172.64.3.1
+*** Successfully loaded ip settings for hosts
+ {'sw0-eth1': '10.0.1.11', 'sw0-eth2': '172.64.3.1', 'client': '10.0.1.100', 'server1': '172.64.3.21', 'server2': '172.64.3.22'}
+*** Creating network
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+client server1 server2 
+*** Adding switches:
+sw0 sw1 
+*** Adding links:
+(client, sw0) (server1, sw1) (server2, sw1) (sw0, sw1) 
+*** Configuring hosts
+client server1 server2 
+*** Starting controller
+*** Starting 2 switches
+sw0 sw1 
+*** setting default gateway of host server1
+server1 172.64.3.1
+*** setting default gateway of host server2
+server2 172.64.3.1
+*** setting default gateway of host client
+client 10.0.1.11
+*** Starting SimpleHTTPServer on host server1 
+*** Starting SimpleHTTPServer on host server2 
+*** Starting CLI:
+mininet> client ping -c 3 server1
+PING 172.64.3.21 (172.64.3.21) 56(84) bytes of data.
+64 bytes from 172.64.3.21: icmp_req=1 ttl=63 time=157 ms
+64 bytes from 172.64.3.21: icmp_req=2 ttl=63 time=88.1 ms
+64 bytes from 172.64.3.21: icmp_req=3 ttl=63 time=93.9 ms
+
+--- 172.64.3.21 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 88.167/113.346/157.957/31.631 ms
+mininet> client ping -c 3 server1[K[K[K[K[K[K[K172.64.3.1
+PING 172.64.3.1 (172.64.3.1) 56(84) bytes of data.
+64 bytes from 172.64.3.1: icmp_req=1 ttl=0 time=17.2 ms
+64 bytes from 172.64.3.1: icmp_req=2 ttl=0 time=34.1 ms
+64 bytes from 172.64.3.1: icmp_req=3 ttl=0 time=50.2 ms
+
+--- 172.64.3.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2007ms
+rtt min/avg/max/mdev = 17.224/33.866/50.204/13.466 ms
+mininet> server2 ping [K[K[K[K[K[K[K1 ping -c 2[K3 server2
+^CPING 172.64.3.22 (172.64.3.22) 56(84) bytes of data.
+
+--- 172.64.3.22 ping statistics ---
+3 packets transmitted, 0 received, 100% packet loss, time 2012ms
+
+mininet> server2 ping -c client3client client
+^CPING 10.0.1.100 (10.0.1.100) 56(84) bytes of data.
+
+--- 10.0.1.100 ping statistics ---
+3 packets transmitted, 0 received, 100% packet loss, time 2000ms
+
+mininet> client get[K[K[Kwget http://172.168.2[K3.21
+--2013-11-28 20:48:31--  http://172.168.3.21/
+Connecting to 172.168.3.21:80... ^Cmininet> client wget http://172.168.3.21[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kserver1
+--2013-11-28 20:48:55--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.11'
+
+     0K                                                       100% 2.75M=0s
+
+2013-11-28 20:48:55 (2.75 MB/s) - `index.html.11' saved [161/161]
+
+mininet> client wget server1
+--2013-11-28 20:49:50--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.12'
+
+     0K                                                       100% 2.32M=0s
+
+2013-11-28 20:49:51 (2.32 MB/s) - `index.html.12' saved [161/161]
+
+mininet> client wget server1
+--2013-11-28 20:51:16--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.13'
+
+     0K                                                       100% 1.83M=0s
+
+2013-11-28 20:51:16 (1.83 MB/s) - `index.html.13' saved [161/161]
+
+mininet> client wget server1
+--2013-11-28 20:54:01--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.14'
+
+     0K                                                       100% 1.60M=0s
+
+2013-11-28 20:54:01 (1.60 MB/s) - `index.html.14' saved [161/161]
+
+mininet> client wget server1http://172.168.3.21
+--2013-11-28 20:54:05--  http://172.168.3.21/
+Connecting to 172.168.3.21:80... failed: Connection timed out.
+Retrying.
+
+--2013-11-28 20:55:09--  (try: 2)  http://172.168.3.21/
+Connecting to 172.168.3.21:80... failed: No route to host.
+mininet> client wget http://172.168.3.21
+--2013-11-28 20:56:22--  http://172.168.3.21/
+Connecting to 172.168.3.21:80... ^Cmininet> client wget http://172.168.3.21[12Pserver1
+--2013-11-28 20:56:32--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.15'
+
+     0K                                                       100% 2.37M=0s
+
+2013-11-28 20:56:32 (2.37 MB/s) - `index.html.15' saved [161/161]
+
+mininet> client wget server1http://172.168.3.21[12Pserver1[K2
+--2013-11-28 20:56:36--  http://172.64.3.22/
+Connecting to 172.64.3.22:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.16'
+
+     0K                                                       100% 7.29M=0s
+
+2013-11-28 20:56:37 (7.29 MB/s) - `index.html.16' saved [161/161]
+
+mininet> 
+*** Shutting down stale SimpleHTTPServers  
+*** Shutting down stale webservers  
+*** Stopping 3 hosts
+client server1 server2 
+*** Stopping 2 switches
+sw0 ...sw1 ....
+*** Stopping 1 controllers
+c0 
+*** Done
+]0;mininet@mininet-vm: ~/csc458mininet@mininet-vm:~/csc458$ exit
+
+Script done on Thu 28 Nov 2013 08:58:47 PM PST

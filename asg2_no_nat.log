@@ -1,0 +1,139 @@
+Script started on Thu 28 Nov 2013 07:30:01 PM PST
+]0;mininet@mininet-vm: ~/csc458mininet@mininet-vm:~/csc458$ ./run_mininet.sh [5Psudo reboot[C[1@./killall.sh[C[1Psudo reboot[C[5@./run_mininet.sh[C
+[sudo] password for mininet: 
+*** Removing excess controllers/ofprotocols/ofdatapaths/pings/noxes
+killall -9 controller ofprotocol ofdatapath ping nox_core lt-nox_core ovs-openflowd udpbwtest 2> /dev/null
+*** Removing junk from /tmp
+rm -f /tmp/vconn* /tmp/vlogs* /tmp/*.out /tmp/*.log
+*** Removing old screen sessions
+*** Removing excess kernel datapaths
+ps ax | egrep -o 'dp[0-9]+' | sed 's/dp/nl:/'
+***  Removing OVS datapathsovs-vsctl list-br
+*** Removing all links of the pattern foo-ethX
+ip link show | egrep -o '(\w+-eth\w+)'
+*** Cleanup complete.
+*** Shutting down stale SimpleHTTPServers  
+*** Shutting down stale webservers  
+server1 172.64.3.21
+server2 172.64.3.22
+client 10.0.1.100
+sw0-eth1 10.0.1.11
+sw0-eth2 172.64.3.1
+*** Successfully loaded ip settings for hosts
+ {'sw0-eth1': '10.0.1.11', 'sw0-eth2': '172.64.3.1', 'client': '10.0.1.100', 'server1': '172.64.3.21', 'server2': '172.64.3.22'}
+*** Creating network
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+client server1 server2 
+*** Adding switches:
+sw0 sw1 
+*** Adding links:
+(client, sw0) (server1, sw1) (server2, sw1) (sw0, sw1) 
+*** Configuring hosts
+client server1 server2 
+*** Starting controller
+*** Starting 2 switches
+sw0 sw1 
+*** setting default gateway of host server1
+server1 172.64.3.1
+*** setting default gateway of host server2
+server2 172.64.3.1
+*** setting default gateway of host client
+client 10.0.1.11
+*** Starting SimpleHTTPServer on host server1 
+*** Starting SimpleHTTPServer on host server2 
+*** Starting CLI:
+mininet> client ping [K -c 3 server1
+PING 172.64.3.21 (172.64.3.21) 56(84) bytes of data.
+64 bytes from 172.64.3.21: icmp_req=1 ttl=63 time=156 ms
+64 bytes from 172.64.3.21: icmp_req=2 ttl=63 time=111 ms
+64 bytes from 172.64.3.21: icmp_req=3 ttl=63 time=72.7 ms
+
+--- 172.64.3.21 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2006ms
+rtt min/avg/max/mdev = 72.778/113.356/156.048/34.027 ms
+mininet> client ping -c 3 server1[K[K[K[K[K[K[K172.64.3.1
+PING 172.64.3.1 (172.64.3.1) 56(84) bytes of data.
+64 bytes from 172.64.3.1: icmp_req=1 ttl=0 time=62.0 ms
+64 bytes from 172.64.3.1: icmp_req=2 ttl=0 time=63.0 ms
+64 bytes from 172.64.3.1: icmp_req=3 ttl=0 time=27.4 ms
+
+--- 172.64.3.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 27.454/50.864/63.052/16.559 ms
+mininet> client ping -c 3 172.64.3.1[3Pserver1[K2
+PING 172.64.3.22 (172.64.3.22) 56(84) bytes of data.
+64 bytes from 172.64.3.22: icmp_req=1 ttl=63 time=176 ms
+64 bytes from 172.64.3.22: icmp_req=2 ttl=63 time=90.6 ms
+64 bytes from 172.64.3.22: icmp_req=3 ttl=63 time=60.6 ms
+
+--- 172.64.3.22 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 60.641/109.317/176.675/49.178 ms
+mininet> server2 ping -c 3 client[K[K[K[K[K[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1@1[C[C[C[C[C[C[C[C[C[C[Cserver2
+PING 172.64.3.22 (172.64.3.22) 56(84) bytes of data.
+64 bytes from 172.64.3.22: icmp_req=1 ttl=63 time=347 ms
+64 bytes from 172.64.3.22: icmp_req=2 ttl=63 time=60.2 ms
+64 bytes from 172.64.3.22: icmp_req=3 ttl=63 time=285 ms
+
+--- 172.64.3.22 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2006ms
+rtt min/avg/max/mdev = 60.210/231.248/347.952/123.593 ms
+mininet> server ping -c 3 client[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@2
+PING 10.0.1.100 (10.0.1.100) 56(84) bytes of data.
+64 bytes from 10.0.1.100: icmp_req=1 ttl=63 time=129 ms
+64 bytes from 10.0.1.100: icmp_req=2 ttl=63 time=157 ms
+64 bytes from 10.0.1.100: icmp_req=3 ttl=63 time=120 ms
+
+--- 10.0.1.100 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2006ms
+rtt min/avg/max/mdev = 120.285/135.737/157.913/16.085 ms
+mininet> client tr[Kcptraq[Kceroute 192.168.2.2
+Selected device client-eth0, address 10.0.1.100, port 50738 for outgoing packets
+Tracing the path to 192.168.2.2 on TCP port 80 (http), 30 hops max
+ 1  10.0.1.11  32.564 ms  44.837 ms  97.620 ms
+ 2  10.0.1.11  72.933 ms !N  72.399 ms !N  51.034 ms !N
+mininet> client wget http://172.64.3.10[K[K21
+--2013-11-28 19:44:52--  http://172.64.3.21/
+Connecting to 172.64.3.21:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html'
+
+     0K                                                       100% 3.89M=0s
+
+2013-11-28 19:44:52 (3.89 MB/s) - `index.html' saved [161/161]
+
+mininet> 
+Interrupt
+mininet> client wget http://172.64.3.21[K2
+--2013-11-28 19:45:36--  http://172.64.3.22/
+Connecting to 172.64.3.22:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 161 [text/html]
+Saving to: `index.html.1'
+
+     0K                                                       100% 10.1M=0s
+
+2013-11-28 19:45:37 (10.1 MB/s) - `index.html.1' saved [161/161]
+
+mininet> server1 tcp [Ktraceroute 10.0.1.100
+10.0.1.100 - - [28/Nov/2013 19:44:52] "GET / HTTP/1.1" 200 -
+Selected device server1-eth0, address 172.64.3.21, port 53230 for outgoing packets
+Tracing the path to 10.0.1.100 on TCP port 80 (http), 30 hops max
+ 1  172.64.3.1  72.562 ms  11.485 ms  47.236 ms
+ 2  10.0.1.100 [closed]  204.519 ms  70.164 ms  71.129 ms
+mininet> 
+*** Shutting down stale SimpleHTTPServers  
+*** Shutting down stale webservers  
+*** Stopping 3 hosts
+client server1 server2 
+*** Stopping 2 switches
+sw0 ...sw1 ....
+*** Stopping 1 controllers
+c0 
+*** Done
+]0;mininet@mininet-vm: ~/csc458mininet@mininet-vm:~/csc458$ exit
+
+Script done on Thu 28 Nov 2013 07:48:35 PM PST

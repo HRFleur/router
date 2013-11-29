@@ -240,6 +240,9 @@ int nat_tcp(uint8_t* buf, unsigned int len, struct sr_instance* sr,
 		//dest.s_addr = ntohl(pIpHdr->ip_dst);
 		dest.s_addr = pIpHdr->ip_dst;
 		struct sr_rt *tSr = sr_find_routing_entry(sr, dest, buf, len);
+		if(NULL==tSr){
+			return 1;
+		}
 
 		printf("find the out ip: ");
 		uint32_t ipOut = find_ip_by_interface(tSr->interface, sr->if_list);

@@ -283,8 +283,8 @@ struct sr_nat_connection *sr_nat_delete_connection(struct sr_nat *nat,
 				pp_conn = conn;
 				conn = conn->next;
 			}
+			break;
 		}
-		break;
 
 		p_mapping = p_mapping->next;
 	}
@@ -317,7 +317,8 @@ struct sr_nat_mapping *sr_nat_insert_mapping(struct sr_nat *nat,
 				if (my_aux_int > max_port)
 					my_aux_int = min_port;
 				printf(
-						"conflict with existing port: %d, increase the port by 1", my_aux_int);
+						"conflict with existing port: %d, increase the port by 1",
+						my_aux_int);
 				found = 1;
 				break;
 			}
@@ -348,7 +349,6 @@ struct sr_nat_mapping *sr_nat_insert_mapping(struct sr_nat *nat,
 		conn->port = port_serv;
 		time_t tt = time(NULL );
 		conn->timeout = tt + timeout_tcpEstablished;
-
 
 	}
 
@@ -411,7 +411,9 @@ void sr_nat_clean_mapping(struct sr_nat *nat) {
 
 			while (NULL != conn) {
 				if (conn->timeout < now) {
-					printf("[nat-clean-mapping] find connection expired, now: %d, timeout: %d", now, conn->timeout);
+					printf(
+							"[nat-clean-mapping] find connection expired, now: %d, timeout: %d",
+							now, conn->timeout);
 					if (pp_conn != NULL ) {
 						pp_conn->next = conn->next;
 						free(conn);

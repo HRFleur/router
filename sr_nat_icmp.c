@@ -90,6 +90,9 @@ int nat_icmp(uint8_t* buf, unsigned int len, struct sr_instance* sr,
 		//dest.s_addr = ntohl(pIpHdr->ip_dst);
 		dest.s_addr =( p_iphdr->ip_dst);
 		struct sr_rt *tSr = sr_find_routing_entry(sr, dest, buf, len);
+		if(NULL==tSr){
+			return 0;
+		}
 		printf("[nat icmp] find exit interface: %s\n", tSr->interface);
 		printf("[nat icmp] --------------find the out ip for destination ip: ");
 	printf("destinate: ");
